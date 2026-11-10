@@ -20,7 +20,7 @@ jobs:
       - run: npm test
       - run: xvfb-run -a npm run test:e2e
       - run: npm run package
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: restly-vsix
           path: '*.vsix'
