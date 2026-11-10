@@ -1,0 +1,25 @@
+name: Release
+
+# Builds the .vsix and attaches it to a published GitHub release.
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  vsix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - run: npm run package
+      - run: gh release upload "${{ github.event.release.tag_name }}" *.vsix --clobber
+        env:
+          GH_TOKEN: ${{ github.token }}

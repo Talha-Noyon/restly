@@ -1,0 +1,417 @@
+{
+  "name": "restly",
+  "displayName": "Restly - REST API Client",
+  "description": "Free, open-source REST API client for VS Code: collections, environments, history, tests, cURL and Postman import, code snippets.",
+  "version": "0.1.0",
+  "publisher": "restly",
+  "license": "MIT",
+  "icon": "media/icon.png",
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Testing",
+    "Other"
+  ],
+  "keywords": [
+    "rest",
+    "api",
+    "http",
+    "client",
+    "postman",
+    "curl",
+    "request"
+  ],
+  "main": "./dist/extension.js",
+  "activationEvents": [
+    "workspaceContains:.restly/**"
+  ],
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "restly",
+          "title": "Restly",
+          "icon": "media/restly.svg"
+        }
+      ]
+    },
+    "views": {
+      "restly": [
+        {
+          "id": "restly.collections",
+          "name": "Collections"
+        },
+        {
+          "id": "restly.history",
+          "name": "History"
+        },
+        {
+          "id": "restly.environments",
+          "name": "Environments"
+        }
+      ]
+    },
+    "viewsWelcome": [
+      {
+        "view": "restly.collections",
+        "contents": "No collections yet.\n[New Request](command:restly.newRequest)\n[New Collection](command:restly.newCollection)\n[Import cURL / Postman](command:restly.import)"
+      },
+      {
+        "view": "restly.history",
+        "contents": "Requests you send show up here."
+      }
+    ],
+    "commands": [
+      {
+        "command": "restly.newRequest",
+        "title": "New Request",
+        "category": "Restly",
+        "icon": "$(add)"
+      },
+      {
+        "command": "restly.newCollection",
+        "title": "New Collection",
+        "category": "Restly",
+        "icon": "$(new-folder)"
+      },
+      {
+        "command": "restly.newFolder",
+        "title": "New Folder",
+        "category": "Restly",
+        "icon": "$(new-folder)"
+      },
+      {
+        "command": "restly.rename",
+        "title": "Rename",
+        "category": "Restly",
+        "icon": "$(edit)"
+      },
+      {
+        "command": "restly.delete",
+        "title": "Delete",
+        "category": "Restly",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "restly.duplicate",
+        "title": "Duplicate",
+        "category": "Restly",
+        "icon": "$(copy)"
+      },
+      {
+        "command": "restly.import",
+        "title": "Import cURL / Postman / Restly",
+        "category": "Restly",
+        "icon": "$(cloud-download)"
+      },
+      {
+        "command": "restly.exportCollection",
+        "title": "Export Collection",
+        "category": "Restly",
+        "icon": "$(export)"
+      },
+      {
+        "command": "restly.copyAsCurl",
+        "title": "Copy as cURL",
+        "category": "Restly"
+      },
+      {
+        "command": "restly.refresh",
+        "title": "Refresh",
+        "category": "Restly",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "restly.clearHistory",
+        "title": "Clear History",
+        "category": "Restly",
+        "icon": "$(clear-all)"
+      },
+      {
+        "command": "restly.deleteHistoryEntry",
+        "title": "Delete",
+        "category": "Restly",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "restly.newEnvironment",
+        "title": "New Environment",
+        "category": "Restly",
+        "icon": "$(add)"
+      },
+      {
+        "command": "restly.importEnvironment",
+        "title": "Import Postman Environment",
+        "category": "Restly",
+        "icon": "$(cloud-download)"
+      },
+      {
+        "command": "restly.setActiveEnvironment",
+        "title": "Set Active",
+        "category": "Restly",
+        "icon": "$(check)"
+      },
+      {
+        "command": "restly.selectEnvironment",
+        "title": "Select Environment",
+        "category": "Restly",
+        "icon": "$(globe)"
+      },
+      {
+        "command": "restly.openRequest",
+        "title": "Open Request",
+        "category": "Restly"
+      },
+      {
+        "command": "restly.openHistoryEntry",
+        "title": "Open History Entry",
+        "category": "Restly"
+      },
+      {
+        "command": "restly.openEnvironment",
+        "title": "Open Environment",
+        "category": "Restly"
+      }
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "restly.newFolder",
+          "when": "false"
+        },
+        {
+          "command": "restly.rename",
+          "when": "false"
+        },
+        {
+          "command": "restly.delete",
+          "when": "false"
+        },
+        {
+          "command": "restly.duplicate",
+          "when": "false"
+        },
+        {
+          "command": "restly.exportCollection",
+          "when": "false"
+        },
+        {
+          "command": "restly.copyAsCurl",
+          "when": "false"
+        },
+        {
+          "command": "restly.deleteHistoryEntry",
+          "when": "false"
+        },
+        {
+          "command": "restly.setActiveEnvironment",
+          "when": "false"
+        },
+        {
+          "command": "restly.openRequest",
+          "when": "false"
+        },
+        {
+          "command": "restly.openHistoryEntry",
+          "when": "false"
+        },
+        {
+          "command": "restly.openEnvironment",
+          "when": "false"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "restly.newRequest",
+          "when": "view == restly.collections",
+          "group": "navigation@1"
+        },
+        {
+          "command": "restly.newCollection",
+          "when": "view == restly.collections",
+          "group": "navigation@2"
+        },
+        {
+          "command": "restly.import",
+          "when": "view == restly.collections",
+          "group": "navigation@3"
+        },
+        {
+          "command": "restly.refresh",
+          "when": "view == restly.collections",
+          "group": "navigation@4"
+        },
+        {
+          "command": "restly.clearHistory",
+          "when": "view == restly.history",
+          "group": "navigation"
+        },
+        {
+          "command": "restly.newEnvironment",
+          "when": "view == restly.environments",
+          "group": "navigation@1"
+        },
+        {
+          "command": "restly.importEnvironment",
+          "when": "view == restly.environments",
+          "group": "navigation@2"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "restly.newRequest",
+          "when": "view == restly.collections && viewItem =~ /^(collection|folder)$/",
+          "group": "inline@1"
+        },
+        {
+          "command": "restly.newRequest",
+          "when": "view == restly.collections && viewItem =~ /^(collection|folder)$/",
+          "group": "1_new@1"
+        },
+        {
+          "command": "restly.newFolder",
+          "when": "view == restly.collections && viewItem =~ /^(collection|folder)$/",
+          "group": "1_new@2"
+        },
+        {
+          "command": "restly.copyAsCurl",
+          "when": "view == restly.collections && viewItem == request",
+          "group": "2_copy@1"
+        },
+        {
+          "command": "restly.exportCollection",
+          "when": "view == restly.collections && viewItem == collection",
+          "group": "2_copy@2"
+        },
+        {
+          "command": "restly.rename",
+          "when": "view == restly.collections",
+          "group": "3_edit@1"
+        },
+        {
+          "command": "restly.duplicate",
+          "when": "view == restly.collections",
+          "group": "3_edit@2"
+        },
+        {
+          "command": "restly.delete",
+          "when": "view == restly.collections",
+          "group": "3_edit@3"
+        },
+        {
+          "command": "restly.deleteHistoryEntry",
+          "when": "view == restly.history && viewItem == historyEntry",
+          "group": "inline"
+        },
+        {
+          "command": "restly.setActiveEnvironment",
+          "when": "view == restly.environments && viewItem == environment",
+          "group": "inline"
+        },
+        {
+          "command": "restly.setActiveEnvironment",
+          "when": "view == restly.environments && viewItem == environment",
+          "group": "1_env@1"
+        },
+        {
+          "command": "restly.rename",
+          "when": "view == restly.environments && viewItem =~ /^environment(Active)?$/",
+          "group": "2_edit@1"
+        },
+        {
+          "command": "restly.duplicate",
+          "when": "view == restly.environments && viewItem =~ /^environment(Active)?$/",
+          "group": "2_edit@2"
+        },
+        {
+          "command": "restly.delete",
+          "when": "view == restly.environments && viewItem =~ /^environment(Active)?$/",
+          "group": "2_edit@3"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Restly",
+      "properties": {
+        "restly.storage": {
+          "type": "string",
+          "enum": [
+            "workspace",
+            "global"
+          ],
+          "enumDescriptions": [
+            "Save collections and environments in a .restly folder inside the workspace, so they can be committed and shared.",
+            "Save collections and environments in VS Code's global storage, the same in every window."
+          ],
+          "default": "workspace",
+          "description": "Where collections and environments are saved. History is always saved globally."
+        },
+        "restly.timeout": {
+          "type": "number",
+          "default": 30000,
+          "minimum": 0,
+          "description": "Request timeout in milliseconds. 0 disables the timeout."
+        },
+        "restly.followRedirects": {
+          "type": "boolean",
+          "default": true,
+          "description": "Follow HTTP redirects."
+        },
+        "restly.maxRedirects": {
+          "type": "number",
+          "default": 10,
+          "minimum": 0,
+          "description": "Maximum number of redirects to follow."
+        },
+        "restly.strictSSL": {
+          "type": "boolean",
+          "default": true,
+          "description": "Reject servers whose TLS certificate cannot be verified. Turn off for self-signed local servers."
+        },
+        "restly.historyLimit": {
+          "type": "number",
+          "default": 500,
+          "minimum": 0,
+          "description": "Number of sent requests kept in history."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "watch": "node scripts/build.mjs --watch",
+    "typecheck": "tsc --noEmit -p .",
+    "lint": "eslint src test scripts",
+    "format": "prettier --write \"src/**/*.{ts,tsx,css}\" \"test/**/*.ts\"",
+    "test": "vitest run",
+    "package": "npm run build -- --production && vsce package --no-dependencies",
+    "vscode:prepublish": "npm run build -- --production",
+    "test:e2e": "npm run build && node scripts/e2e.mjs"
+  },
+  "dependencies": {
+    "@codemirror/commands": "^6.7.1",
+    "@codemirror/lang-html": "^6.4.9",
+    "@codemirror/lang-json": "^6.0.1",
+    "@codemirror/lang-xml": "^6.1.0",
+    "@codemirror/language": "^6.10.8",
+    "@codemirror/search": "^6.5.8",
+    "@codemirror/state": "^6.5.0",
+    "@codemirror/view": "^6.36.1",
+    "@lezer/highlight": "^1.2.1",
+    "preact": "^10.25.4"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.17.0",
+    "@types/node": "^20.17.10",
+    "@types/vscode": "~1.90.0",
+    "@vscode/test-electron": "^2.5.2",
+    "@vscode/vsce": "^3.2.1",
+    "esbuild": "^0.25.0",
+    "eslint": "^9.17.0",
+    "prettier": "^3.4.2",
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.18.2",
+    "vitest": "^3.0.5"
+  }
+}

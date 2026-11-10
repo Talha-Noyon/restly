@@ -1,0 +1,6 @@
+{
+  "restly": 1,
+  "id": "env-dev",
+  "name": "Development",
+  "variables": [{"key": "baseUrl", "value": "https://api.dev.test", "enabled": true, "secret": false}]
+}
