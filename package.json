@@ -3,8 +3,16 @@
   "displayName": "Restly - REST API Client",
   "description": "Free, open-source REST API client for VS Code: collections, environments, history, tests, cURL and Postman import, code snippets.",
   "version": "0.1.0",
-  "publisher": "restly",
+  "publisher": "talha-noyon",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Talha-Noyon/restly.git"
+  },
+  "homepage": "https://github.com/Talha-Noyon/restly#readme",
+  "bugs": {
+    "url": "https://github.com/Talha-Noyon/restly/issues"
+  },
   "icon": "media/icon.png",
   "engines": {
     "vscode": "^1.90.0"

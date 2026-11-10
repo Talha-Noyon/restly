@@ -35,7 +35,7 @@ No account, no sign-in, no telemetry, no paid tier. MIT licensed.
 
 ## Install
 
-From a GitHub Release: download `restly-x.y.z.vsix`, then run
+From [GitHub Releases](https://github.com/Talha-Noyon/restly/releases/latest): download `restly-x.y.z.vsix`, then run
 
 ```sh
 code --install-extension restly-x.y.z.vsix

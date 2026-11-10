@@ -1,3 +1,4 @@
+import {rmSync} from 'node:fs'
 import * as esbuild from 'esbuild'
 
 const watch = process.argv.includes('--watch')
@@ -31,6 +32,9 @@ const builds = [
     jsxImportSource: 'preact'
   }
 ]
+
+// Start clean so a production package never carries maps from a dev build.
+rmSync('dist', {recursive: true, force: true})
 
 if (watch) {
   for (const options of builds) {

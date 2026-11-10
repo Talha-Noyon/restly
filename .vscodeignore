@@ -1,5 +1,6 @@
 **
 !dist/**
+dist/**/*.map
 !media/**
 !package.json
 !README.md
