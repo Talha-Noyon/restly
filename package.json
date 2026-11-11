@@ -14,6 +14,10 @@
     "url": "https://github.com/Talha-Noyon/restly/issues"
   },
   "icon": "media/icon.png",
+  "galleryBanner": {
+    "color": "#1f2937",
+    "theme": "dark"
+  },
   "engines": {
     "vscode": "^1.90.0"
   },
@@ -414,7 +418,7 @@
     "@types/node": "^20.17.10",
     "@types/vscode": "~1.90.0",
     "@vscode/test-electron": "^2.5.2",
-    "@vscode/vsce": "^3.2.1",
+    "@vscode/vsce": "^4.1.0",
     "esbuild": "^0.25.0",
     "eslint": "^9.17.0",
     "prettier": "^3.4.2",

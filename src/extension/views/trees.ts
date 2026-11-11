@@ -77,6 +77,8 @@ export class CollectionsTree implements vscode.TreeDataProvider<CollectionItem> 
     tree.contextValue = 'request'
     tree.description = node.method
     tree.tooltip = `${node.method} ${node.url}`
+    // Without this, screen readers announce the tooltip instead of the name.
+    tree.accessibilityInformation = {label: `${node.name}, ${node.method} request`}
     tree.iconPath = methodIcon(node.method)
     tree.command = {command: 'restly.openRequest', title: 'Open', arguments: [item]}
     return tree
@@ -115,6 +117,9 @@ export class HistoryTree implements vscode.TreeDataProvider<HistoryItem> {
       : methodIcon(request.method)
     const result = entry.error ? 'failed' : `${entry.status}`
     tree.description = `${request.method} · ${result} · ${timeAgo(entry.timestamp)}`
+    tree.accessibilityInformation = {
+      label: `${request.method} ${label}, ${entry.error ? 'failed' : `status ${entry.status}`}`
+    }
     tree.tooltip = new vscode.MarkdownString(
       [
         `**${request.method}** ${request.url}`,

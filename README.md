@@ -6,6 +6,8 @@ responses with tests and keep everything in git next to your code.
 
 No account, no sign-in, no telemetry, no paid tier. MIT licensed.
 
+![Restly in VS Code: collections, environments and history in the sidebar, a request with its JSON response](media/screenshot.png)
+
 ## Features
 
 - **Request editor**: any method, query params kept in sync with the URL,
@@ -35,13 +37,17 @@ No account, no sign-in, no telemetry, no paid tier. MIT licensed.
 
 ## Install
 
-From [GitHub Releases](https://github.com/Talha-Noyon/restly/releases/latest): download `restly-x.y.z.vsix`, then run
+Search for **Restly** in the VS Code Extensions view, or install it from the
+[Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=talha-noyon.restly):
 
 ```sh
-code --install-extension restly-x.y.z.vsix
+code --install-extension talha-noyon.restly
 ```
 
-or open the Extensions view, then **⋯ → Install from VSIX…**.
+Each version is also attached to a
+[GitHub Release](https://github.com/Talha-Noyon/restly/releases/latest) as a
+`.vsix` file: run `code --install-extension restly-x.y.z.vsix`, or use
+**⋯ → Install from VSIX…** in the Extensions view.
 
 ## Getting started
 
@@ -118,16 +124,18 @@ src/webview/     request and environment editors (Preact + CodeMirror)
 test/            vitest suites, including the HTTP client against a local server
 ```
 
-## Publishing to the Marketplace (optional)
+## Releasing
 
-Restly ships as a `.vsix` on GitHub Releases. To list it on the VS Code
-Marketplace or Open VSX:
+1. Bump `version` in `package.json` and add a `CHANGELOG.md` entry; commit and push.
+2. Publish a GitHub release tagged `vX.Y.Z`.
 
-1. Create a publisher at <https://marketplace.visualstudio.com/manage>, or an
-   Open VSX account at <https://open-vsx.org>.
-2. Set `"publisher"` in `package.json` to your publisher id.
-3. Run `npx vsce publish` (with an Azure DevOps token), or
-   `npx ovsx publish restly-x.y.z.vsix -p <token>` for Open VSX.
+The `Release` workflow then builds the `.vsix`, attaches it to the release and
+publishes it to the VS Code Marketplace with
+[Trusted Publishing](https://code.visualstudio.com/api/working-with-extensions/publishing-extension)
+(`vsce publish --oidc`), so no Marketplace token is stored anywhere. It needs a
+Trusted Publishing policy on the `talha-noyon` publisher for repository
+`Talha-Noyon/restly` and workflow `release.yml`. Running the workflow by hand
+(**Actions → Release → Run workflow**) publishes the current `main`.
 
 ## License
 

@@ -1,7 +1,9 @@
 **
 !dist/**
 dist/**/*.map
-!media/**
+!media/icon.png
+!media/restly.svg
+!media/restly-color.svg
 !package.json
 !README.md
 !LICENSE
