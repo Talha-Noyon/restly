@@ -1,20 +1,22 @@
 name: Release
 
-# On a published GitHub release: build the .vsix, attach it to the release and
-# publish it to the VS Code Marketplace through Trusted Publishing (OIDC), so no
-# Marketplace token is stored. Run it by hand to publish the current main.
+# On a published GitHub release, or run by hand for the current main: build the
+# .vsix once, attach it to the release, then publish it to the VS Code
+# Marketplace (Trusted Publishing, no stored token) and to Open VSX (the
+# OVSX_PAT secret; skipped while that secret is not set).
 on:
   release:
     types: [published]
   workflow_dispatch:
 
 permissions:
-  contents: write
-  id-token: write
+  contents: read
 
 jobs:
-  vsix:
+  package:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-node@v5
@@ -24,10 +26,54 @@ jobs:
       - run: npm ci
       - run: npm test
       - run: npm run package
+      - uses: actions/upload-artifact@v7
+        with:
+          name: vsix
+          path: '*.vsix'
+          if-no-files-found: error
       - name: Attach to the GitHub release
         if: github.event_name == 'release'
         run: gh release upload "${{ github.event.release.tag_name }}" *.vsix --clobber
         env:
           GH_TOKEN: ${{ github.token }}
+
+  marketplace:
+    needs: package
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          name: vsix
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
       - name: Publish to the VS Code Marketplace
-        run: npx vsce publish --oidc --skip-duplicate --packagePath *.vsix
+        run: npx --yes @vscode/vsce@4.1.0 publish --oidc --skip-duplicate --packagePath *.vsix
+
+  openvsx:
+    needs: package
+    runs-on: ubuntu-latest
+    env:
+      OVSX_PAT: ${{ secrets.OVSX_PAT }}
+    steps:
+      - name: Skip when no Open VSX token is configured
+        if: env.OVSX_PAT == ''
+        run: echo "::notice::The OVSX_PAT secret is not set, so Open VSX publishing is skipped."
+      - uses: actions/download-artifact@v8
+        if: env.OVSX_PAT != ''
+        with:
+          name: vsix
+      - uses: actions/setup-node@v5
+        if: env.OVSX_PAT != ''
+        with:
+          node-version: 22
+      - name: Create the namespace on first publish
+        if: env.OVSX_PAT != ''
+        run: |
+          curl -sf https://open-vsx.org/api/talha-noyon > /dev/null \
+            || npx --yes ovsx@1.4.0 create-namespace talha-noyon -p "$OVSX_PAT"
+      - name: Publish to Open VSX
+        if: env.OVSX_PAT != ''
+        run: npx --yes ovsx@1.4.0 publish *.vsix --skip-duplicate -p "$OVSX_PAT"

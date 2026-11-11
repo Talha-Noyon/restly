@@ -44,6 +44,10 @@ Search for **Restly** in the VS Code Extensions view, or install it from the
 code --install-extension talha-noyon.restly
 ```
 
+In Cursor, Windsurf, VSCodium and other editors that use
+[Open VSX](https://open-vsx.org/extension/talha-noyon/restly), search for
+**Restly** in their Extensions view.
+
 Each version is also attached to a
 [GitHub Release](https://github.com/Talha-Noyon/restly/releases/latest) as a
 `.vsix` file: run `code --install-extension restly-x.y.z.vsix`, or use
@@ -129,8 +133,9 @@ test/            vitest suites, including the HTTP client against a local server
 1. Bump `version` in `package.json` and add a `CHANGELOG.md` entry; commit and push.
 2. Publish a GitHub release tagged `vX.Y.Z`.
 
-The `Release` workflow then builds the `.vsix`, attaches it to the release and
-publishes it to the VS Code Marketplace with
+The `Release` workflow then builds the `.vsix`, attaches it to the release,
+publishes it to Open VSX with the `OVSX_PAT` repository secret, and publishes it
+to the VS Code Marketplace with
 [Trusted Publishing](https://code.visualstudio.com/api/working-with-extensions/publishing-extension)
 (`vsce publish --oidc`), so no Marketplace token is stored anywhere. It needs a
 Trusted Publishing policy on the `talha-noyon` publisher for repository
